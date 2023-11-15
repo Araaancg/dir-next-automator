@@ -5,6 +5,22 @@
             "subroutes":[
                 {
                     "name":"projects",
+                    "subroutes":[
+                        {
+                            "name":"[id]",
+                            "fallback-name":"one-project",
+                            "subroutes":[]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name":"denunciar-siniestro",
+            "subroutes":[
+                {
+                    "name":"[id]",
+                    "fallback-name":"one-claim",
                     "subroutes":[]
                 }
             ]
