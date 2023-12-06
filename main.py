@@ -1,8 +1,12 @@
 import os
 import json
 import shutil
+import tkinter as tk
 
-proyectPath = "../reusable-react-components/src"
+print('hola mundo')
+
+# proyectPath = "../change-the-block/web_v3/src"
+proyectPath = ''
 
 # FUNCIONES
 def getData(jsonFile):
@@ -16,7 +20,7 @@ def createFile(fileName, text):
     file.close()
 
 def capitalizeCamelCase(str):
-    newStr = "".join([a.capitalize() for a in str.split("")])
+    newStr = "".join([a.capitalize() for a in str.split("-")])
     return newStr
 
 def changeExtension(fileName, newExtension, **fileType):

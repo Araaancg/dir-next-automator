@@ -1,46 +1,42 @@
 {
     "routes":[
         {
-            "name":"dashboard",
-            "subroutes":[
-                {
-                    "name":"projects",
-                    "subroutes":[
-                        {
-                            "name":"[id]",
-                            "fallback-name":"one-project",
-                            "subroutes":[]
-                        }
-                    ]
-                }
-            ]
+            "name":"updates",
+            "subroutes":[]
         },
         {
-            "name":"denunciar-siniestro",
+            "name":"404",
+            "subroutes":[]
+        },
+        {
+            "name":"outsourcing",
+            "subroutes":[]
+        },
+        {
+            "name":"blog",
             "subroutes":[
                 {
                     "name":"[id]",
-                    "fallback-name":"one-claim",
+                    "fallback-name":"one-article",
                     "subroutes":[]
                 }
             ]
         },
         {
-            "name":"auth",
+            "name":"projects",
             "subroutes":[
                 {
-                    "name":"login",
-                    "subroutes":[]
-                },
-                {
-                    "name":"register",
+                    "name":"[id]",
+                    "fallback-name":"one-projects",
                     "subroutes":[]
                 }
             ]
         }
     ],
     "components":{
-        "atoms":["Modal","Button","ProgressBar"],
-        "dashboard":["Sidebar","Newsletter"]
+        "atoms":["Button","Modal","Navbar","Footer","MenuPopup","List","Banner"],
+        "home":["BannerContact","Blog","Contact","Faqs","Intro","Newsletter","Portfolio","Scale","Services","Stack","SectionHeading","TimeCard","ServicesCard"],
+        "updates":["UpdatePreview"],
+        "blog":["Filters","ArticlePreview"]
     }
 }
