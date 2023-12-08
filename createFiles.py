@@ -1,25 +1,11 @@
 import os
-import json
 import shutil
+from funcs import *
 
 fileRoutes = ['module','page','layout']
 fileComponents = ["template","functional","module"]
 
 # FUNCIONES
-def getData(jsonFile):
-    with open(jsonFile, encoding="utf8") as file:
-        return json.load(file)
-
-def createFile(fileName, text):
-    file = open(fileName, 'w')
-    if text:
-        file.write(text)
-    file.close()
-
-def capitalizeCamelCase(str):
-    newStr = "".join([a.capitalize() for a in str.split("-")])
-    return newStr
-
 def changeExtension(fileName, newExtension, **fileType):
     if fileType.get("module"):
         os.rename(fileName, f'{fileName.split(".")[0]}.module.{newExtension}')
@@ -42,11 +28,11 @@ def createRouteFiles(routeName, fileNames, path):
     routeName = capitalizeCamelCase(routeName)
     for name in fileNames:
         if name == "module":
-            createFile(f'{routeName}.txt',"")
+            writeTxt(f'{routeName}.txt',"")
             changeExtension(f'{routeName}.txt', 'scss', module=True)
             shutil.move(f'./{routeName}.module.scss',f'{path}/{routeName}.module.scss')
         else:
-            createFile(f'{name}.txt', writeText(routeName, name))
+            writeTxt(f'{name}.txt', writeText(routeName, name))
             changeExtension(f'{name}.txt', 'tsx')
             shutil.move(f'./{name}.tsx',f'{path}/{name}.tsx')
     return True
@@ -63,15 +49,15 @@ def createRoutes(routeList, folderPath):
 def createComponentsFiles(cName, fileNames, path):
     for fileType in fileNames:
         if fileType == "module":
-            createFile(f'{cName}.txt',"")
+            writeTxt(f'{cName}.txt',"")
             changeExtension(f'{cName}.txt', 'scss', module=True)
             shutil.move(f'./{cName}.module.scss',f'{path}/{cName}.module.scss') 
         elif fileType == "template":
-            createFile(f'{cName}.txt', writeText(cName, fileType))
+            writeTxt(f'{cName}.txt', writeText(cName, fileType))
             changeExtension(f'{cName}.txt', 'tsx', template=True)
             shutil.move(f'./{cName}.template.tsx',f'{path}/{cName}.template.tsx')
         else:
-            createFile(f'{cName}.txt', writeText(cName, fileType))
+            writeTxt(f'{cName}.txt', writeText(cName, fileType))
             changeExtension(f'{cName}.txt', 'ts')
             shutil.move(f'./{cName}.ts',f'{path}/{cName}.ts')
     return True
@@ -97,7 +83,7 @@ def createAllFiles(projectPath):
     #  - Home.module.scss
     
     # PASO 3: CREAMOS LAS CARPETAS DE RUTAS
-    # toCreate = getData("./toCreate.json")
+    # toCreate = getJson("./toCreate.json")
     # routesToCreate = toCreate["routes"]
     # folderRoutes = f"{projectPath}/app"  
     # createRoutes(routesToCreate, folderRoutes)

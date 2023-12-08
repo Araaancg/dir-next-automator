@@ -1,14 +1,4 @@
 {
-    "routes":[
-        {
-            "name":"updates",
-            "subroutes":[]
-        }
-    ],
-    "components":{
-        "atoms":["Button","Modal","Navbar","Footer","MenuPopup","List","Banner"],
-        "home":["BannerContact","Blog","Contact","Faqs","Intro","Newsletter","Portfolio","Scale","Services","Stack","SectionHeading","TimeCard","ServicesCard"],
-        "updates":["UpdatePreview"],
-        "blog":["Filters","ArticlePreview"]
-    }
+    "routes":[],
+    "components":{}
 }
