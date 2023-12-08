@@ -3,34 +3,6 @@
         {
             "name":"updates",
             "subroutes":[]
-        },
-        {
-            "name":"404",
-            "subroutes":[]
-        },
-        {
-            "name":"outsourcing",
-            "subroutes":[]
-        },
-        {
-            "name":"blog",
-            "subroutes":[
-                {
-                    "name":"[id]",
-                    "fallback-name":"one-article",
-                    "subroutes":[]
-                }
-            ]
-        },
-        {
-            "name":"projects",
-            "subroutes":[
-                {
-                    "name":"[id]",
-                    "fallback-name":"one-projects",
-                    "subroutes":[]
-                }
-            ]
         }
     ],
     "components":{

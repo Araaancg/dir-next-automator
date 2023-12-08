@@ -2,8 +2,8 @@ import os
 import json
 import shutil
 
-# proyectPath = "../change-the-block/web_v3/src"
-proyectPath = ''
+fileRoutes = ['module','page','layout']
+fileComponents = ["template","functional","module"]
 
 # FUNCIONES
 def getData(jsonFile):
@@ -38,17 +38,6 @@ def writeText(name, fileType):
     elif fileType == "template":
         return 'import React from "react";import styles from "./' + name + '.module.scss";const Template' + name + ' = (): JSX.Element => {return <div></div>;};export default Template' + name + ';'
 
-# PASO 1: CREAR CARPETA /src
-# dentro de la carpeta, crear carpeta 'componentes'
-
-os.makedirs(f'{proyectPath}/components')
-
-# PASO 2: CREAMOS LOS ARCHIVOS BÁSICOS PARA ./app
-#  - page.tsx
-#  - layout.tsx
-#  - Home.module.scss
-
-fileRoutes = ['module','page','layout']
 def createRouteFiles(routeName, fileNames, path):
     routeName = capitalizeCamelCase(routeName)
     for name in fileNames:
@@ -62,13 +51,6 @@ def createRouteFiles(routeName, fileNames, path):
             shutil.move(f'./{name}.tsx',f'{path}/{name}.tsx')
     return True
 
-# PASO 3: CREAMOS LAS CARPETAS DE RUTAS
-
-toCreate = getData("./toCreate.json")
-
-routesToCreate = toCreate["routes"]
-folderRoutes = f"{proyectPath}/app"
-
 def createRoutes(routeList, folderPath):
     for route in routeList:
         path = f'{folderPath}/{route["name"].lower()}'
@@ -77,14 +59,6 @@ def createRoutes(routeList, folderPath):
         if route["subroutes"]:
             createRoutes(route["subroutes"], path)
     return True
-
-createRoutes(routesToCreate, folderRoutes)
-
-# PASO 4: CREAMOS LAS CARPETAS DE RUTAS
-
-componentsToCreate = toCreate["components"]
-compPath = f"{proyectPath}/components"
-fileComponents = ["template","functional","module"]
 
 def createComponentsFiles(cName, fileNames, path):
     for fileType in fileNames:
@@ -112,4 +86,24 @@ def createComponents(compList, folderPath):
             createComponentsFiles(c, fileComponents, f"{path}/{c}")
     return True
 
-createComponents(componentsToCreate,compPath)
+def createAllFiles(projectPath):
+    # PASO 1: crear carpeta /componentes dentro de /src
+    print(projectPath)
+    os.makedirs(f'{projectPath}/components')
+
+    # PASO 2: CREAMOS LOS ARCHIVOS BÁSICOS PARA ./app
+    #  - page.tsx
+    #  - layout.tsx
+    #  - Home.module.scss
+    
+    # PASO 3: CREAMOS LAS CARPETAS DE RUTAS
+    # toCreate = getData("./toCreate.json")
+    # routesToCreate = toCreate["routes"]
+    # folderRoutes = f"{projectPath}/app"  
+    # createRoutes(routesToCreate, folderRoutes)
+
+    # PASO 4: CREAMOS LAS CARPETAS DE RUTAS
+    # componentsToCreate = toCreate["components"]
+    # compPath = f"{projectPath}/components"
+    # createComponents(componentsToCreate,compPath)
+
