@@ -1,9 +1,6 @@
 import os
 import json
 import shutil
-import tkinter as tk
-
-print('hola mundo')
 
 # proyectPath = "../change-the-block/web_v3/src"
 proyectPath = ''
