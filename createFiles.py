@@ -83,10 +83,10 @@ def createAllFiles(projectPath):
     #  - Home.module.scss
     
     # PASO 3: CREAMOS LAS CARPETAS DE RUTAS
-    # toCreate = getJson("./toCreate.json")
-    # routesToCreate = toCreate["routes"]
-    # folderRoutes = f"{projectPath}/app"  
-    # createRoutes(routesToCreate, folderRoutes)
+    toCreate = getJson("./toCreate.json")
+    routesToCreate = toCreate["routes"]
+    folderRoutes = f"{projectPath}/app"  
+    createRoutes(routesToCreate, folderRoutes)
 
     # PASO 4: CREAMOS LAS CARPETAS DE RUTAS
     # componentsToCreate = toCreate["components"]
