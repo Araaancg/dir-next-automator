@@ -1,13 +1,4 @@
 {
-  "routes": [
-    {
-      "name": "hjoalque",
-      "subroutes": []
-    },
-    {
-      "name": "josdfn",
-      "subroutes": []
-    }
-  ],
+  "routes": [],
   "components": {}
 }
