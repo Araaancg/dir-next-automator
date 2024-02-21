@@ -1,42 +1,88 @@
 {
-    "routes":[
+  "src": [
+    {
+      "name": "app",
+      "type": "folder",
+      "subpaths": [
         {
-            "name":"updates",
-            "subroutes":[]
+          "name": "api",
+          "type": "folder",
+          "subpaths": [
+            {
+              "name": "crypto",
+              "type": "route"
+            }
+          ]
         },
         {
-            "name":"404",
-            "subroutes":[]
+          "name": "convert",
+          "type": "page"
         },
         {
-            "name":"outsourcing",
-            "subroutes":[]
+          "name": "auth",
+          "type": "page",
+          "subpaths": [
+            {
+              "name": "login",
+              "type": "page"
+            },
+            {
+              "name": "register",
+              "type": "page"
+            }
+          ]
         },
         {
-            "name":"blog",
-            "subroutes":[
-                {
-                    "name":"[id]",
-                    "fallback-name":"one-article",
-                    "subroutes":[]
-                }
-            ]
+          "name": "market-info",
+          "type": "page"
         },
         {
-            "name":"projects",
-            "subroutes":[
-                {
-                    "name":"[id]",
-                    "fallback-name":"one-projects",
-                    "subroutes":[]
-                }
-            ]
+          "name": "wallet",
+          "type": "page"
         }
-    ],
-    "components":{
-        "atoms":["Button","Modal","Navbar","Footer","MenuPopup","List","Banner"],
-        "home":["BannerContact","Blog","Contact","Faqs","Intro","Newsletter","Portfolio","Scale","Services","Stack","SectionHeading","TimeCard","ServicesCard"],
-        "updates":["UpdatePreview"],
-        "blog":["Filters","ArticlePreview"]
+      ]
+    },
+    {
+      "name": "components",
+      "type": "folder",
+      "subpaths": [
+        {
+          "name": "Button",
+          "type": "component"
+        },
+        {
+          "name": "Modal",
+          "type": "component"
+        },
+        {
+          "name": "form",
+          "type": "folder",
+          "subpaths": [
+            {
+              "name": "TransferForm",
+              "type": "component",
+              "divided": true,
+              "subpaths": [
+                {
+                  "name": "SchemaLogin",
+                  "type": "file",
+                  "extension": "ts"
+                }
+              ]
+            },
+            {
+              "name": "SwapForm",
+              "type": "component",
+              "scss": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "theme",
+      "type": "file",
+      "extension": "js"
     }
+  ]
 }
