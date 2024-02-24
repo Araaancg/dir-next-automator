@@ -9,36 +9,36 @@
           "type": "folder",
           "subpaths": [
             {
-              "name": "crypto",
+              "name": "auth",
+              "type": "route"
+            },
+            {
+              "name": "password",
+              "type": "route"
+            },
+            {
+              "name": "project",
               "type": "route"
             }
           ]
         },
         {
-          "name": "convert",
-          "type": "page"
-        },
-        {
-          "name": "auth",
+          "name": "department",
           "type": "page",
+          "addPage": true,
+          "addLayout": true,
+          "addCss": true,
+          "dynamic": true,
           "subpaths": [
             {
-              "name": "login",
-              "type": "page"
-            },
-            {
-              "name": "register",
-              "type": "page"
+              "name": "project",
+              "type": "page",
+              "addPage": true,
+              "addLayout": true,
+              "addCss": true,
+              "dynamic": true
             }
           ]
-        },
-        {
-          "name": "market-info",
-          "type": "page"
-        },
-        {
-          "name": "wallet",
-          "type": "page"
         }
       ]
     },
@@ -48,41 +48,82 @@
       "subpaths": [
         {
           "name": "Button",
-          "type": "component"
+          "type": "component",
+          "divided": false,
+          "addCss": true
         },
         {
           "name": "Modal",
-          "type": "component"
+          "type": "component",
+          "divided": false,
+          "addCss": true
+        },
+        {
+          "name": "Dropdown",
+          "type": "component",
+          "divided": false,
+          "addCss": true
         },
         {
           "name": "form",
           "type": "folder",
           "subpaths": [
             {
-              "name": "TransferForm",
+              "name": "AddPaswordForm",
               "type": "component",
-              "divided": true,
-              "subpaths": [
-                {
-                  "name": "SchemaLogin",
-                  "type": "file",
-                  "extension": "ts"
-                }
-              ]
+              "divided": false,
+              "addCss": false
             },
             {
-              "name": "SwapForm",
+              "name": "CreateProjectForm",
               "type": "component",
-              "scss": false
+              "divided": false,
+              "addCss": false
+            },
+            {
+              "name": "LoginForm",
+              "type": "component",
+              "divided": false,
+              "addCss": false
+            },
+            {
+              "name": "form",
+              "type": "file",
+              "extension":"scss"
+            }
+          ]
+        },
+        {
+          "name": "Inputs",
+          "type": "folder",
+          "subpaths": [
+            {
+              "name": "error-input",
+              "type": "component",
+              "divided": false,
+              "addCss": false
+            },
+            {
+              "name": "numeric-code",
+              "type": "component",
+              "divided": false,
+              "addCss": true
+            },
+            {
+              "name": "text-field",
+              "type": "component",
+              "divided": false,
+              "addCss": true
+            },
+            {
+              "name": "textarea",
+              "type": "component",
+              "divided": false,
+              "addCss": false
             }
           ]
         }
       ]
-    },
-    {
-      "name": "theme",
-      "type": "file",
-      "extension": "js"
     }
   ]
 }
