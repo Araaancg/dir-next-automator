@@ -1,5 +1,7 @@
-/__pycache__/**
-/tests/**
+/__pycache__/
+/tests/
 toCreate.json
-/utils/__pycache__/**
-/utils/functions/__pycache__/**
+/utils/__pycache__/
+/utils/functions/__pycache__/
+/components/__pycache__/
+/venv/
