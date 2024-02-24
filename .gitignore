@@ -1,3 +1,5 @@
-/__pycache__/
-/tests/
-./toCreate.json
+/__pycache__/**
+/tests/**
+toCreate.json
+/utils/__pycache__/**
+/utils/functions/__pycache__/**
