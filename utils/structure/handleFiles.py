@@ -1,8 +1,9 @@
 # HANDLING ALL THAT HAS TO DO WITH FOLDERS AND FILES
 
 import os
-from utils.functions.getFileContent import getFileContent
-from utils.functions.toCamelCase import toCamelCase
+import shutil
+from utils.structure.getFileContent import getFileContent
+from utils.structure.toCamelCase import toCamelCase
 
 
 # create folders
@@ -19,20 +20,29 @@ TYPES OF FILES
 - route.tsx - nothing written on it
 '''
 
+ASSETS_PATH = "C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets"
+
+
 def iterateProjectStructure(estructure, proyectPath):
     try:
         for item in estructure:
             if item["type"] == "folder": # handle folders
                 folderPath = os.path.join(proyectPath, item["name"])
                 createFolder(folderPath) # create them
+                if item["name"] == "app":
+                    print("extra files")
+                    copyBasicFiles(f"{ASSETS_PATH}\\code", folderPath)
+
             elif item["type"] == "file": # handle single files
-                createFile(proyectPath, item["name"], item["extension"]) # create them
+                fileName = item["name"].split(".")[0]
+                fileExtension = item["name"].split(".")[1]
+                createFile(proyectPath, fileName, fileExtension) # create them
 
             elif item["type"] == "component":
-                createComponent(proyectPath, item["name"], divided=item.get("divided"), addStyles=item.get("addCss")) # create them
+                createComponent(proyectPath, item["name"], divided=item.get("divided"), addStyles=item.get("css")) # create them
 
             elif item["type"] == "page":
-                createPage(proyectPath, item["name"], addPage=item.get("addPage"), addLayout=item.get("addLayout"), addStyles=item.get("addCss"), isDynamic=item.get("dynamic")) # create them
+                createPage(proyectPath, item["name"], addPage=item.get("page"), addLayout=item.get("layout"), addStyles=item.get("css"), isDynamic=item.get("dynamic")) # create them
             
             elif item["type"] == "route":
                 createRoute(proyectPath, item["name"]) # create them
@@ -94,3 +104,13 @@ def createRoute(path, name):
     routePath = os.path.join(path, name)
     createFolder(routePath)
     createFile(routePath, "route", "tsx")
+
+def copyBasicFiles(sourceFolder, destinationFolder):
+    print(sourceFolder, destinationFolder)
+    os.makedirs(destinationFolder, exist_ok=True)
+    for filename in os.listdir(sourceFolder):
+        sourcePath = os.path.join(sourceFolder, filename)
+        destinationPath = os.path.join(destinationFolder, filename)
+
+        if os.path.isfile(sourcePath):
+            shutil.copy2(sourcePath, destinationPath)

@@ -1,11 +1,13 @@
 import customtkinter as ctk 
 from components.button import ButtonComponent
-from components.checkbox import CheckboxComponent
 from components.separator import SeparatorComponent
+from components.moreOptions import MoreOptionsComponent
+from utils.structure.handleJson import getData
 
-projectPath = "C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets\\images"
+ASSETS_PATH = "C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets"
 
 
+optionsMapping = getData("C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets\\data\\options.json")
 
 class InputComponent:
     def __init__(self, root, type, level=0):
@@ -24,33 +26,29 @@ class InputComponent:
         self.changeTypeButton = ButtonComponent(self.innerFrame, self.changeInputType)
 
         # BUTTON TO DELETE THE INPUT
-        self.deleteInputButton = ButtonComponent(self.innerFrame, self.deleteInput, icon=f'{projectPath}\\trash.png')
+        self.deleteInputButton = ButtonComponent(self.innerFrame, self.deleteInput, icon=f'{ASSETS_PATH}\\images\\trash.png')
 
-        # CHECKBOXES
-        # for component: divided and css
-        self.dividedCheckbox = CheckboxComponent(self.innerFrame, "divided")
-        self.cssCheckbox = CheckboxComponent(self.innerFrame, "add css")
-        # for page: page, layout, dynamic and css (recycling css checkbox from component)
-        self.pageCheckbox = CheckboxComponent(self.innerFrame, "add page")
-        self.layoutCheckbox = CheckboxComponent(self.innerFrame, "add layout")
-        self.dynamicCheckbox = CheckboxComponent(self.innerFrame, "dynamic")
+        # CHECKBOXES - MORE OPTIONS
+        self.moreOptions = MoreOptionsComponent(self.frame)
+        self.moreOptionsButton = ButtonComponent(self.innerFrame, self.toggleOptions, icon=f'{ASSETS_PATH}\\images\\downCaret.png')
 
         # SUBROUTES
         self.subroutes = []
-        self.addSubrouteButton = ButtonComponent(self.innerFrame, self.addSubroute, icon=f'{projectPath}\\plus.png')
-
-        # self.managingCheckboxes()
-        self.manageButtonTypeIcon()
+        self.addSubrouteButton = ButtonComponent(self.innerFrame, self.addSubroute, icon=f'{ASSETS_PATH}\\images\\plus.png')
 
         separator = SeparatorComponent(self.innerFrame, "vertical")
-        separator.separator.grid(row = 0, column = 0, sticky="ns")
-        self.changeTypeButton.button.grid(row = 0, column = 1)
-        self.input.grid(row = 0, column = 2)
-        self.deleteInputButton.button.grid(row = 0, column = 3)
-        self.addSubrouteButton.button.grid(row = 0, column = 4)
+        separator.separator.grid(row = 0, column = self.level, sticky="ns")
+        self.changeTypeButton.button.grid(row = 0, column = self.level + 1)
+        self.input.grid(row = 0, column = self.level + 2)
+        self.deleteInputButton.button.grid(row = 0, column = self.level + 3)
+        self.addSubrouteButton.button.grid(row = 0, column = self.level + 4)
 
-        self.innerFrame.pack(padx=(50 * self.level, 0))
-
+        self.innerFrame.pack(anchor='nw')
+        self.frame.pack(anchor='nw', fill='x') if self.level > 0 else self.frame.pack(anchor='nw', fill='x', padx=(20, 0))
+  
+        self.managingCheckboxes()
+        self.manageButtonTypeIcon()
+            
     def getInputText(self):
         return self.input.get()
     
@@ -62,46 +60,42 @@ class InputComponent:
             nextIndex = 0
         self.type = availableTypes[nextIndex]
         self.manageButtonTypeIcon()
-        # self.managingCheckboxes()
+        self.managingCheckboxes()
     
-    # def managingCheckboxes(self):
-    #     allCheckboxes = (self.dividedCheckbox, self.cssCheckbox, self.pageCheckbox, self.layoutCheckbox, self.dynamicCheckbox)
-    #     checkboxMapping = {
-    #         "component": (self.dividedCheckbox, self.cssCheckbox),
-    #         "page": (self.pageCheckbox, self.layoutCheckbox, self.cssCheckbox, self.dynamicCheckbox),
-    #     }
-    #     checkboxesToPack = checkboxMapping.get(self.type, ())
-
-    #     for checkbox in allCheckboxes:
-    #         if checkbox in checkboxesToPack:
-    #             checkbox.checkbox.pack()
-    #         else:
-    #             checkbox.checkbox.pack_forget()
+    def managingCheckboxes(self):
+        if optionsMapping.get(self.type):
+            self.moreOptions.changeOptions(optionsMapping[self.type])
+            self.showOptionsButton()
+        else:
+            self.moreOptions.changeOptions(())
+            self.hideOptionsButton()
+ 
+    def toggleOptions(self):
+        if self.moreOptions.isShowing:
+            self.moreOptionsButton.setButtonIcon(f'{ASSETS_PATH}\\images\\downCaret.png')  
+            self.moreOptions.hide()
+        else: 
+            self.moreOptionsButton.setButtonIcon(f'{ASSETS_PATH}\\images\\upCaret.png')
+            self.moreOptions.show()
     
     def getInfo(self):
         info = {"name": self.getInputText(), "type": self.type}
-        if self.type == "component":
-            info["divided"] = self.dividedCheckbox.state.get()
-            info["addCss"] = self.cssCheckbox.state.get()
-        elif self.type == "page":
-            info["page"] = self.pageCheckbox.state.get()
-            info["layout"] = self.layoutCheckbox.state.get()
-            info["addCss"] = self.cssCheckbox.state.get()
-            info["dynamic"] = self.dynamicCheckbox.state.get()
+        info.update(self.moreOptions.getInfo())
         if len(self.subroutes) > 0:
-            info["subroutes"] = []
+            info["subpaths"] = []
             for inputRoute in self.subroutes:
-                info["subroutes"].append(inputRoute.getInfo())
+                info["subpaths"].append(inputRoute.getInfo())
 
         return info
     
     def manageButtonTypeIcon(self):
-        self.changeTypeButton.setButtonIcon(f"{projectPath}\\{self.type}.png")
+        self.changeTypeButton.setButtonIcon(f"{ASSETS_PATH}\\images\\{self.type}.png")
 
     def addSubroute(self):
-        newInput = InputComponent(self.frame, "folder", level= self.level + 1)     
-        newInput.frame.pack()
+        newInput = InputComponent(self.frame, "folder", level=(self.level + 1))     
+        newInput.frame.pack(side="bottom")
         self.subroutes.append(newInput)
+        newInput.addSeparators()
 
     def deleteInput(self):
         index = -1
@@ -114,3 +108,14 @@ class InputComponent:
             self.subroutes.pop(index)
 
         self.frame.destroy()
+    
+    def hideOptionsButton(self):
+        self.moreOptionsButton.button.grid_forget()
+
+    def showOptionsButton(self):
+        self.moreOptionsButton.button.grid(row = 0, column = self.level + 5)
+
+    def addSeparators(self):
+        for i in range(self.level):
+            separator = SeparatorComponent(self.innerFrame, "vertical")
+            separator.separator.grid(row=0, column=0 + i, sticky="ns", padx=(0, 20))

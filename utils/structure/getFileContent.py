@@ -1,4 +1,4 @@
-from utils.functions.toCamelCase import toCamelCase
+from utils.structure.toCamelCase import toCamelCase
 
 def getFileContent(name, fileType):
     if fileType == "page":

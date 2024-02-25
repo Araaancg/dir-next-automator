@@ -1,0 +1,36 @@
+{
+    "component":[
+        {
+            "id": "divided",
+            "text": "divide functionality?",
+            "defaultState": false
+        },
+        {
+            "id": "css",
+            "text": "add a css file?",
+            "defaultState": true
+        }
+    ],
+    "page": [
+        {
+            "id": "css",
+            "text": "add a css file?",
+            "defaultState": true
+        },
+        {
+            "id": "page",
+            "text": "add a page file?",
+            "defaultState": true
+        },
+        {
+            "id": "layout",
+            "text": "add a layout file?",
+            "defaultState": true
+        },
+        {
+            "id": "dynamic",
+            "text": "is this a dynamic route?",
+            "defaultState": false
+        }
+    ]
+}

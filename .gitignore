@@ -2,6 +2,6 @@
 /tests/
 toCreate.json
 /utils/__pycache__/
-/utils/functions/__pycache__/
+/utils/structure/__pycache__/
 /components/__pycache__/
 /venv/
