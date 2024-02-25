@@ -3,6 +3,7 @@ from utils.functions.handleFiles import iterateProjectStructure
 import customtkinter as ctk
 from components.input import InputComponent
 from components.button import ButtonComponent
+from components.label import LabelComponent
 
 
 # proyectPath = './tests/src'
@@ -19,18 +20,14 @@ class MyApp:
 
         # changing root title and size
         self.root.title("I guess this would qualify as a title")
-        self.root.geometry("450x620")
+        self.root.geometry("500x620")
         self.root.resizable(True, True) # horizontal, vertical
+
+        self.topLabel = LabelComponent(root, '  src', icon='C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets\\images\\folder.png')
+        self.topLabel.label.pack(anchor='nw', pady=10, padx=10)
 
         self.inputs = []
         self.addInputField()
-
-        self.addInputButton = ButtonComponent(
-            self.root, 
-            self.addInputField, 
-            "add input"
-            )
-        self.addInputButton.button.pack(pady=10, side="bottom")
         
         self.addInputButton = ButtonComponent(
             self.root, 
@@ -39,10 +36,17 @@ class MyApp:
             )
         self.addInputButton.button.pack(pady=10, side="bottom")
 
+        self.addInputButton = ButtonComponent(
+            self.root, 
+            self.addInputField, 
+            "add input"
+            )
+        self.addInputButton.button.pack(pady=10, side="bottom")
+
     def addInputField(self):
         # create a new input component
         inputComponent = InputComponent(self.root, "folder")
-        inputComponent.frame.pack(pady=10)
+        inputComponent.frame.pack()
         self.inputs.append(inputComponent)
     
     def getInfoFromInputs(self):
