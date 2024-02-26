@@ -32,7 +32,8 @@ class ButtonComponent:
             height=self.width,
             image=self.icon,
             fg_color="transparent",
-            hover_color="#333"
+            hover_color="#333",
+            compound='right'
             )
 
     def setButtonText(self, newText):

@@ -4,7 +4,7 @@ import os
 import shutil
 from utils.structure.getFileContent import getFileContent
 from utils.structure.toCamelCase import toCamelCase
-
+from routes import ASSETS_PATH
 
 # create folders
 # get data for different files, page.tsx, layout.tsx, route.tsx, component.tsx, component.scss, styles.scss
@@ -20,9 +20,6 @@ TYPES OF FILES
 - route.tsx - nothing written on it
 '''
 
-ASSETS_PATH = "C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets"
-
-
 def iterateProjectStructure(estructure, proyectPath):
     try:
         for item in estructure:
@@ -30,7 +27,6 @@ def iterateProjectStructure(estructure, proyectPath):
                 folderPath = os.path.join(proyectPath, item["name"])
                 createFolder(folderPath) # create them
                 if item["name"] == "app":
-                    print("extra files")
                     copyBasicFiles(f"{ASSETS_PATH}\\code", folderPath)
 
             elif item["type"] == "file": # handle single files
@@ -56,9 +52,7 @@ def iterateProjectStructure(estructure, proyectPath):
 
 def createFolder(path):
     try:
-        print(path)
         os.makedirs(path)
-        print(f"Folder '{path}' succesfully created.")
     except FileExistsError:
         print(f"Folder '{path}' already exists.")
     return path
@@ -68,7 +62,6 @@ def createFile(path, name, extension, content=''):
     try:
         with open(filePath, 'w') as file:
             file.write(content)
-        print(f"File '{name}.{extension}' created in '{path}'.")
     except Exception as e:
         print(f"Error creating file: {e}")
     return filePath 
@@ -77,12 +70,12 @@ def createComponent(path, name, divided, addStyles):
     componentPath = os.path.join(path, name)
     createFolder(componentPath)
     if divided:
-        templateContent = getFileContent(name, "template")
+        templateContent = getFileContent(name, "template", css=addStyles)
         functionalContent = getFileContent(name, "functional")
         createFile(componentPath, f"{name}Template.template", "tsx", templateContent)
         createFile(componentPath, f"{name}", "ts", functionalContent)
     else:
-        componentContent = getFileContent(name, "fullComponent")
+        componentContent = getFileContent(name, "fullComponent", css=addStyles)
         createFile(componentPath, name, "tsx", componentContent)
     if addStyles:
         createFile(componentPath, toCamelCase(name, False), "scss")
@@ -92,7 +85,7 @@ def createPage(path, name, addPage, addLayout, addStyles, isDynamic):
     
     createFolder(pagePath)
     if addPage:
-        pageContent = getFileContent(name, "page")
+        pageContent = getFileContent(name, "page", css=addStyles)
         createFile(pagePath, "page", "tsx", pageContent)
     if addLayout:
         layoutContent = getFileContent(name, "layout")
@@ -106,7 +99,6 @@ def createRoute(path, name):
     createFile(routePath, "route", "tsx")
 
 def copyBasicFiles(sourceFolder, destinationFolder):
-    print(sourceFolder, destinationFolder)
     os.makedirs(destinationFolder, exist_ok=True)
     for filename in os.listdir(sourceFolder):
         sourcePath = os.path.join(sourceFolder, filename)

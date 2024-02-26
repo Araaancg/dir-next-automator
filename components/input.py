@@ -3,11 +3,9 @@ from components.button import ButtonComponent
 from components.separator import SeparatorComponent
 from components.moreOptions import MoreOptionsComponent
 from utils.structure.handleJson import getData
+from routes import ASSETS_PATH
 
-ASSETS_PATH = "C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets"
-
-
-optionsMapping = getData("C:\\Users\\Aran\\Desktop\\myCode\\nextProjectInitiator\\assets\\data\\options.json")
+optionsMapping = getData(f"{ASSETS_PATH}\\data\\options.json")
 
 class InputComponent:
     def __init__(self, root, type, level=0):
@@ -50,7 +48,10 @@ class InputComponent:
         self.manageButtonTypeIcon()
             
     def getInputText(self):
-        return self.input.get()
+        if self.input.winfo_exists():
+            return self.input.get()
+        else:
+            return ""
     
     def changeInputType(self):
         availableTypes = ["folder", "file", "component", "page", "route"]
