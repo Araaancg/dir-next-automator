@@ -3,5 +3,6 @@
 toCreate.json
 /utils/__pycache__/
 /utils/structure/__pycache__/
+/utils/outputFolder/__pycache__/
 /components/__pycache__/
 /venv/
